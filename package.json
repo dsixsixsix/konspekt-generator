@@ -8,13 +8,20 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/themes.ts && tsc -b && vite build",
     "serve": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false",
     "fonts": "node scripts/fetch-fonts.ts",
-    "batch": "node scripts/batch.ts"
+    "batch": "node scripts/batch.ts",
+    "app": "electron .",
+    "app:dev": "KONSPEKT_DEV_URL=http://localhost:5180 electron .",
+    "app:smoke": "pnpm build && electron . --smoke",
+    "icon": "node scripts/icon.ts",
+    "dist:mac": "pnpm build && electron-builder --mac",
+    "dist:win": "pnpm build && electron-builder --win nsis",
+    "themes": "node scripts/themes.ts"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",
@@ -27,6 +34,8 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^5.0.0",
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2",
     "vite": "^7.0.0",
@@ -34,7 +43,57 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "electron",
       "esbuild"
     ]
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "ru.konspekt.gen",
+    "productName": "Konspekt",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**",
+      "dist/**",
+      "package.json",
+      "!node_modules/**"
+    ],
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity",
+      "darkModeSupport": true,
+      "identity": null
+    },
+    "dmg": {
+      "title": "Konspekt ${version}"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Konspekt"
+    }
   }
 }
