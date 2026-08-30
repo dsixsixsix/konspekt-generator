@@ -1,0 +1,7 @@
+[
+  { "id": "pecita", "file": "Pecita.ttf", "name": "Pecita", "note": "связный, буквы соединяются", "size": 4.2 },
+  { "id": "pacifico", "file": "Pacifico-Regular.ttf", "name": "Pacifico", "note": "связный, декоративный", "size": 4.0 },
+  { "id": "marck", "file": "MarckScript-Regular.ttf", "name": "Marck Script", "note": "курсив без связок", "size": 4.6 },
+  { "id": "badscript", "file": "BadScript-Regular.ttf", "name": "Bad Script", "note": "курсив без связок", "size": 4.3 },
+  { "id": "caveat", "file": "Caveat-Regular.ttf", "name": "Caveat", "note": "печатно-курсивный", "size": 5.0 }
+]
