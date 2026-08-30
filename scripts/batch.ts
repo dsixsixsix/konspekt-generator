@@ -3,13 +3,16 @@
  * Тот же движок, что и в браузере, поэтому вид совпадает с превью.
  *
  *   node scripts/batch.ts [--font Pecita.ttf] [--seed 12345] [--merge]
+ *                          [--booklet] [--signature 4] [--flip-backs]
+ *
+ * --booklet раскладывает страницы по A4 под сшивку тетрадью.
  */
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { join, basename, extname } from 'node:path';
 import { PDFDocument } from 'pdf-lib';
 import { layoutText } from '../src/core/layout.ts';
 import { makeStrokes } from '../src/core/handwriting.ts';
-import { renderPdf } from '../src/core/pdf.ts';
+import { renderPdf, renderBookletPdf } from '../src/core/pdf.ts';
 import { loadMetrics } from '../src/core/measure.ts';
 import { defaultHand, defaultNotebook } from '../src/core/presets.ts';
 
@@ -23,6 +26,9 @@ const flag = (name: string, fallback: string) => {
 const fontFile = flag('font', 'Pecita.ttf');
 const baseSeed = Number(flag('seed', '20260830'));
 const merge = args.includes('--merge');
+const booklet = args.includes('--booklet');
+const sheetsPerSignature = Number(flag('signature', '4'));
+const flipBacks = args.includes('--flip-backs');
 
 const fontBytes = new Uint8Array(await readFile(join(root, 'public', 'fonts', fontFile)));
 const metrics = loadMetrics(fontBytes);
@@ -47,17 +53,20 @@ for (const [index, file] of files.entries()) {
   const seed = baseSeed + index * 7919; // у каждой темы свой почерк дня
   const pages = makeStrokes(
     layoutText({
-      text, notebook, seed,
+      text, notebook, seed, fixes: hand.fixes,
       measure: metrics.measurerFor(hand.size),
       spaceWidth: metrics.spaceWidth(hand.size) * 1.45,
     }),
     notebook, hand, seed,
   );
-  const bytes = await renderPdf({ pages, notebook, hand, fontBytes, title: basename(file, extname(file)) });
-  const name = `${String(index + 1).padStart(2, '0')}-${basename(file, extname(file))}.pdf`;
+  const title = basename(file, extname(file));
+  const bytes = booklet
+    ? await renderBookletPdf({ pages, notebook, hand, fontBytes, title, sheetsPerSignature, flipBacks })
+    : await renderPdf({ pages, notebook, hand, fontBytes, title });
+  const name = `${String(index + 1).padStart(2, '0')}-${title}${booklet ? '-tetrad' : ''}.pdf`;
   await writeFile(join(outDir, name), bytes);
   built.push({ name, bytes });
-  console.log(`${name} — ${pages.length} стр.`);
+  console.log(`${name} — ${pages.length} стр.${booklet ? `, ${Math.ceil(pages.length / 4)} листов A4` : ''}`);
 }
 
 if (merge) {

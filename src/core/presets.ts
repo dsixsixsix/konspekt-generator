@@ -34,6 +34,8 @@ export const defaultHand = (): Hand => ({
   pressure: 0.55,
   charJitter: 0,
   fatigue: 0.35,
+  blots: 0.45,
+  fixes: 0.35,
   ink: '#2A3B8F',
 });
 

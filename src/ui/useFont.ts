@@ -25,7 +25,7 @@ async function adopt(id: string, bytes: Uint8Array): Promise<LoadedFont> {
   return { id, family, bytes, metrics: loadMetrics(bytes) };
 }
 
-export function useFont() {
+export function useFont(preferredId: string | null = null) {
   const [catalog, setCatalog] = useState<FontEntry[]>([]);
   const [font, setFont] = useState<LoadedFont | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -55,12 +55,14 @@ export function useFont() {
       const bytes = new Uint8Array(await file.arrayBuffer());
       setFont(await adopt(`user-${Date.now()}`, bytes));
     } catch {
-      setError('Не удалось прочитать шрифт. Нужен .ttf или .otf — woff2 не подходит.');
+      setError('Не удалось прочитать шрифт. Нужен файл .ttf или .otf, woff2 не подходит.');
     }
   }, []);
 
+  // При старте берём шрифт из сохранённых настроек, иначе первый в каталоге.
   useEffect(() => {
-    if (catalog.length && !font) void select(catalog[0]!);
+    if (!catalog.length || font) return;
+    void select(catalog.find(c => c.id === preferredId) ?? catalog[0]!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [catalog]);
 
