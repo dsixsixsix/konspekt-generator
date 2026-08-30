@@ -4,3 +4,4 @@ out
 public/fonts/*.ttf
 public/fonts/*.otf
 .DS_Store
+tsconfig.tsbuildinfo
