@@ -62,6 +62,7 @@
       "!node_modules/**"
     ],
     "artifactName": "${productName}-${arch}.${ext}",
+    "publish": null,
     "mac": {
       "target": [
         {
