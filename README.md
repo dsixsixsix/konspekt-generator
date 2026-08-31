@@ -18,7 +18,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/dsixsixsix/konspekt-generator/releases">
-    <img alt="Последний релиз" src="https://img.shields.io/github/v/release/dsixsixsix/konspekt-generator?style=flat-square&label=версия&color=blue">
+    <img alt="Последний релиз" src="https://img.shields.io/github/v/release/dsixsixsix/konspekt-generator?style=flat-square&label=release&color=blue">
   </a>
 </p>
 <p align="center"><sub>Сборки не подписаны — при первом запуске система предупредит про неизвестного издателя, это ожидаемо (подробности ниже).</sub></p>
