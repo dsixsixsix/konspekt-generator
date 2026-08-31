@@ -1,9 +1,24 @@
-# konspekt-gen
+<h1 align="center">konspekt-gen</h1>
+<p align="center">Текст на входе — рукописный конспект на выходе</p>
 
-Генератор рукописного конспекта под тетрадь в клетку. Текст на входе,
-многостраничный PDF на выходе: связный курсив, живая базовая линия, разный
-нажим, чередование полей по страницам, кляксы и описки с зачёркиваниями.
-Печатается по две страницы на A4 под сшивку тетрадью.
+<p align="center">
+  <a href="https://github.com/dsixsixsix/konspekt-generator/releases">
+    <img alt="Последний релиз" src="https://img.shields.io/github/v/release/dsixsixsix/konspekt-generator?style=flat-square&label=release&color=blue">
+  </a>
+  <img alt="Платформы" src="https://img.shields.io/badge/платформы-macOS%20%7C%20Windows-444?style=flat-square">
+  <img alt="Работает офлайн" src="https://img.shields.io/badge/работает-офлайн-444?style=flat-square">
+  <img alt="Стек" src="https://img.shields.io/badge/стек-Electron%20%7C%20React%20%7C%20pdf--lib-444?style=flat-square">
+</p>
+
+<p align="center">
+  <img src="./.github/assets/hero.png" alt="Страница сгенерированного конспекта: связный рукописный курсив, клетчатый лист, зачёркивание описки" width="360">
+</p>
+
+<p align="center">
+  Многостраничный PDF: связный курсив, живая базовая линия, разный нажим,
+  чередование полей по страницам, кляксы и описки с зачёркиваниями.<br>
+  Печатается по две страницы на A4 под сшивку тетрадью.
+</p>
 
 <p align="center">
   <a href="https://github.com/dsixsixsix/konspekt-generator/releases/latest/download/Konspekt-x64.exe">
@@ -16,12 +31,18 @@
     <img alt="Скачать для macOS (Intel)" src="https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white">
   </a>
 </p>
-<p align="center">
-  <a href="https://github.com/dsixsixsix/konspekt-generator/releases">
-    <img alt="Последний релиз" src="https://img.shields.io/github/v/release/dsixsixsix/konspekt-generator?style=flat-square&label=release&color=blue">
-  </a>
-</p>
 <p align="center"><sub>Сборки не подписаны — при первом запуске система предупредит про неизвестного издателя, это ожидаемо (подробности ниже).</sub></p>
+
+<p align="center">
+  <a href="#стек">Стек</a> ·
+  <a href="#как-устроено">Как устроено</a> ·
+  <a href="#связки-букв">Связки букв</a> ·
+  <a href="#тетрадь-из-a4">Тетрадь из A4</a> ·
+  <a href="#настольное-приложение">Настольное приложение</a> ·
+  <a href="#печать">Печать</a>
+</p>
+
+---
 
 ```bash
 pnpm install
