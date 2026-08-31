@@ -5,13 +5,31 @@
 нажим, чередование полей по страницам, кляксы и описки с зачёркиваниями.
 Печатается по две страницы на A4 под сшивку тетрадью.
 
+<p align="center">
+  <a href="https://github.com/dsixsixsix/konspekt-generator/releases/latest/download/Konspekt-x64.exe">
+    <img alt="Скачать для Windows" src="https://img.shields.io/badge/Windows-Скачать%20.exe-0078D6?style=for-the-badge&logo=windows11&logoColor=white">
+  </a>
+  <a href="https://github.com/dsixsixsix/konspekt-generator/releases/latest/download/Konspekt-arm64.dmg">
+    <img alt="Скачать для macOS (Apple Silicon)" src="https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white">
+  </a>
+  <a href="https://github.com/dsixsixsix/konspekt-generator/releases/latest/download/Konspekt-x64.dmg">
+    <img alt="Скачать для macOS (Intel)" src="https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white">
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/dsixsixsix/konspekt-generator/releases">
+    <img alt="Последний релиз" src="https://img.shields.io/github/v/release/dsixsixsix/konspekt-generator?style=flat-square&label=версия&color=blue">
+  </a>
+</p>
+<p align="center"><sub>Сборки не подписаны — при первом запуске система предупредит про неизвестного издателя, это ожидаемо (подробности ниже).</sub></p>
+
 ```bash
 pnpm install
 pnpm fonts        # скачать свободные шрифты в public/fonts (один раз)
 pnpm dev          # редактор на http://localhost:5180
 pnpm batch --merge   # themes/*.txt → out/*.pdf, плюс общий файл
 pnpm test
-pnpm dist:mac     # приложение: release/Konspekt-0.1.0-arm64.dmg и -x64.dmg
+pnpm dist:mac     # приложение: release/Konspekt-arm64.dmg и -x64.dmg
 ```
 
 ## Стек
@@ -205,8 +223,10 @@ pnpm dist:win     # .exe (NSIS), нужен Windows или wine
 git tag v0.1.0 && git push origin v0.1.0
 ```
 
-Через несколько минут на странице Releases лежат `Konspekt-0.1.0-x64.exe`,
-`Konspekt-0.1.0-arm64.dmg` и `Konspekt-0.1.0-x64.dmg`. Дальше:
+Через несколько минут на странице Releases лежат `Konspekt-x64.exe`,
+`Konspekt-arm64.dmg` и `Konspekt-x64.dmg` (без номера версии в имени —
+кнопки в начале README ссылаются на `releases/latest/download/...` и не
+ломаются при следующем релизе). Дальше:
 
 - Windows: скачать `.exe`, запустить. SmartScreen покажет синее окно про
   неизвестного издателя — «Подробнее», затем «Выполнить в любом случае».
